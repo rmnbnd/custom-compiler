@@ -1,0 +1,3 @@
+declare length integer
+declare width integer
+6 y=length*integer

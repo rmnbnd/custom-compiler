@@ -8,13 +8,12 @@ import core.model.ast.AST;
 import core.model.lex.Token;
 import core.model.symbol.Symbol;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
 
-import static java.lang.System.exit;
-import static java.lang.System.in;
 import static java.lang.System.out;
 
 public class Executor {
@@ -28,46 +27,41 @@ public class Executor {
     private static Executor executor = new Executor();
 
     public static void main(String[] args) throws IOException {
-        out.println("Please choose to declare, assign, or exit");
+        Executor executor = new Executor();
         executor.execute();
     }
 
     public void execute() {
-        boolean result = false;
-        while (!result) {
-            String inputString = executor.getInputString();
-            result = executor.execute(inputString);
-        }
+        String input = getFile("input.txt");
+        execute(input);
     }
 
-    public boolean execute(String input) {
+    public void execute(String input) {
         try {
             Queue<Token> tokens = lexer.lex(input);
             AST ast = parser.doParse(tokens);
             staticAnalise.analis(ast);
             List<Symbol> symbols = symbolAnalise.analis(ast);
-            return true;
         } catch (Exception e) {
             out.println("Error: " + e.getMessage());
-            out.println("Please choose to declare, assign, or exit");
-            return false;
         }
     }
 
-    private String getInputString() {
-        Scanner scanner = new Scanner(in);
-        StringBuilder stringBuilder = new StringBuilder();
-        while (true) {
-            String input = scanner.nextLine();
-            if ("end".equals(input)) {
-                break;
+    private String getFile(String fileName) {
+        StringBuilder result = new StringBuilder("");
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource(fileName).getFile());
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                result.append(line).append("\n");
             }
-            if ("exit".equals(input)) {
-                exit(0);
-            }
-            stringBuilder.append(input).append(LINE_SEPARATOR);
+            scanner.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return stringBuilder.toString();
+        return result.toString();
+
     }
 
 }
