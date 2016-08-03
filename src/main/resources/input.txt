@@ -1,2 +1,0 @@
-declare width integer
-2 width=width*1
