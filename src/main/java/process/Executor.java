@@ -42,6 +42,7 @@ public class Executor {
             AST ast = parser.doParse(tokens);
             staticAnalise.analis(ast);
             List<Symbol> symbols = symbolAnalise.analis(ast);
+            out.println("Execute without errors");
         } catch (Exception e) {
             out.println("Error: " + e.getMessage());
         }
