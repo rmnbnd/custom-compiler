@@ -1,11 +1,15 @@
 package core;
 
+import core.model.ast.Display;
+import core.model.ast.DisplayOperator;
+import core.model.ast.Read;
 import core.model.ast.AST;
 import core.model.ast.Assignment;
 import core.model.ast.BinaryOp;
 import core.model.ast.Body;
 import core.model.ast.Declare;
 import core.model.ast.NumberConst;
+import core.model.ast.ReadExpression;
 import core.model.ast.Type;
 import core.model.ast.Variable;
 import core.model.lex.Kind;
@@ -35,6 +39,18 @@ public class Parser {
                 lines.add(declare);
                 break;
             }
+            case READ_OPERATION: {
+                tokens.poll();
+                Read read = new Read(tokens.poll().getData());
+                lines.add(read);
+                break;
+            }
+            case DISPLAY_OPERATION: {
+                tokens.poll();
+                Display display = new Display(tokens.poll().getData());
+                lines.add(display);
+                break;
+            }
             case NUMBER: {
                 int lineNumber = getLineNumber(tokens.poll());
                 Assignment assignment = new Assignment(lineNumber, getName(tokens.poll()), getExpression(lineNumber, tokens));
@@ -49,6 +65,10 @@ public class Parser {
 
     private AST getExpression(int lineNumber, Queue<Token> tokens) {
         tokens.poll();
+        if (tokens.peek().getKind() == Kind.READ_OPERATION) {
+            tokens.poll();
+            return new ReadExpression();
+        }
         AST left = getElementFromExpression(lineNumber, tokens.poll());
         Token operation = tokens.poll();
         AST right = getElementFromExpression(lineNumber, tokens.poll());

@@ -11,6 +11,8 @@ public class Lexer {
 
     private static final String DECLARE = "declare";
     private static final String INTEGER = "integer";
+    public static final String READ = "read";
+    public static final String DISPLAY = "display";
 
     public Queue<Token> lex(String input) {
         Queue<Token> tokens = new ArrayDeque<>();
@@ -71,6 +73,12 @@ public class Lexer {
                             tokens.add(token);
                         } else if (Objects.equals(identifier.toString(), INTEGER)) {
                             token = new Token(Kind.INTEGER, identifier.toString());
+                            tokens.add(token);
+                        } else if (Objects.equals(identifier.toString(), READ)) {
+                            token = new Token(Kind.READ_OPERATION, identifier.toString());
+                            tokens.add(token);
+                        } else if (Objects.equals(identifier.toString(), DISPLAY)) {
+                            token = new Token(Kind.DISPLAY_OPERATION, identifier.toString());
                             tokens.add(token);
                         } else {
                             token = new Token(Kind.IDENTIFIER, identifier.toString());

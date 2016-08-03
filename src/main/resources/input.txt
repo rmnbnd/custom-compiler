@@ -1,3 +1,8 @@
-declare length integer
-declare width integer
-6 y=length*integer
+declare length integer;
+declare width integer;
+declare answer integer;
+read 4
+display answer
+1 width=read
+2 length = width*width
+3 answer = width*length

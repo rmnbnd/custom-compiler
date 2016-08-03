@@ -6,6 +6,7 @@ import core.model.ast.BinaryOp;
 import core.model.ast.Body;
 import core.model.ast.Declare;
 import core.model.ast.NumberConst;
+import core.model.ast.ReadExpression;
 import core.model.ast.Variable;
 
 import java.util.HashSet;
@@ -37,6 +38,8 @@ public class StaticAnalise {
                 throw new RuntimeException(variable.getLineNumber() + "  Use of undeclared variable name " + variable.getValue());
             }
         } else if (ast instanceof NumberConst) {
+            // skip
+        } else if (ast instanceof ReadExpression) {
             // skip
         } else {
             throw new RuntimeException("Unexpected AST structure");
