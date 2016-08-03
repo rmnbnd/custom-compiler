@@ -12,11 +12,13 @@ public class SymbolAnalise {
         List<Symbol> symbols = new ArrayList<>();
         if (ast instanceof Body) {
             Body body = (Body) ast;
-            body.getLines().stream().filter(line -> line instanceof Declare).forEach(line -> {
-                Declare declare = (Declare) line;
-                Symbol symbol = new Symbol(declare.getName(), declare.getType().getTypeId());
-                symbols.add(symbol);
-            });
+            for (AST line : body.getLines()) {
+                if (line instanceof Declare) {
+                    Declare declare = (Declare) line;
+                    Symbol symbol = new Symbol(declare.getName(), declare.getType().getTypeId());
+                    symbols.add(symbol);
+                }
+            }
         }
         return symbols;
     }
