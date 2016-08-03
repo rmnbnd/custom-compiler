@@ -81,7 +81,8 @@ public class Executor {
             interpreter.evaluate(ast, symbolAnalise.analis(ast));
             out.println("Execute without errors");
         } catch (Exception e) {
-            out.println("too many, will terminate");
+            out.println("too many errors, will terminate");
+            e.printStackTrace();
         }
     }
 

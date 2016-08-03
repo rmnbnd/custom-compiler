@@ -49,6 +49,19 @@ public class Lexer {
                     tokens.add(token);
                     break;
                 }
+                case '"': {
+                    token = new Token(Kind.QUOTE, String.valueOf(input.charAt(i)));
+                    tokens.add(token);
+                    StringBuilder identifier = new StringBuilder("");
+                    for (i++; i < input.length() && input.charAt(i) != '"'; i++) {
+                        identifier.append(input.charAt(i));
+                    }
+                    token = new Token(Kind.STRING, identifier.toString());
+                    tokens.add(token);
+                    token = new Token(Kind.QUOTE, String.valueOf(input.charAt(i)));
+                    tokens.add(token);
+                    break;
+                }
                 case '1':
                 case '2':
                 case '3':

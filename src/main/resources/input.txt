@@ -1,8 +1,3 @@
-declare length integer;
-declare width integer;
-declare answer integer;
-read 4
-display answer
-1 width=read
-2 length = width*width
-3 answer = width*length
+declare name integer;
+display name
+1 name="Bill Bob"

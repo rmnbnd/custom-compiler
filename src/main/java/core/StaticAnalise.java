@@ -7,6 +7,7 @@ import core.model.ast.Body;
 import core.model.ast.Declare;
 import core.model.ast.NumberConst;
 import core.model.ast.ReadExpression;
+import core.model.ast.StringValue;
 import core.model.ast.Variable;
 
 import java.util.HashSet;
@@ -40,6 +41,8 @@ public class StaticAnalise {
         } else if (ast instanceof NumberConst) {
             // skip
         } else if (ast instanceof ReadExpression) {
+            // skip
+        } else if (ast instanceof StringValue) {
             // skip
         } else {
             throw new RuntimeException("Unexpected AST structure");

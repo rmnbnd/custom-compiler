@@ -6,8 +6,10 @@ import core.model.ast.BinaryOp;
 import core.model.ast.Body;
 import core.model.ast.Declare;
 import core.model.ast.Display;
+import core.model.ast.NumberConst;
 import core.model.ast.Read;
 import core.model.ast.ReadExpression;
+import core.model.ast.StringValue;
 import core.model.ast.Variable;
 import core.model.symbol.Symbol;
 
@@ -72,6 +74,9 @@ public class Interpreter {
             } else if (binaryOp.getOperation().equals("/")) {
                 return String.valueOf(left / right);
             }
+        } else if (expression instanceof StringValue) {
+            StringValue stringValue = (StringValue) expression;
+            return stringValue.getData();
         }
         return "";
     }
@@ -80,6 +85,9 @@ public class Interpreter {
         if (operand instanceof Variable) {
             Variable variable = (Variable) operand;
             return values.get(getSymbol(variable.getValue()));
+        } else if (operand instanceof NumberConst) {
+            NumberConst numberConst = (NumberConst) operand;
+            return numberConst.getNumber();
         }
         return "0";
     }

@@ -10,6 +10,7 @@ import core.model.ast.Body;
 import core.model.ast.Declare;
 import core.model.ast.NumberConst;
 import core.model.ast.ReadExpression;
+import core.model.ast.StringValue;
 import core.model.ast.Type;
 import core.model.ast.Variable;
 import core.model.lex.Kind;
@@ -65,6 +66,12 @@ public class Parser {
 
     private AST getExpression(int lineNumber, Queue<Token> tokens) {
         tokens.poll();
+        if (tokens.peek().getKind() == Kind.QUOTE) {
+            tokens.poll();
+            Token string = tokens.poll();
+            tokens.poll();
+            return new StringValue(string.getData());
+        }
         if (tokens.peek().getKind() == Kind.READ_OPERATION) {
             tokens.poll();
             return new ReadExpression();
