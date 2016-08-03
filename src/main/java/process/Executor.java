@@ -1,4 +1,4 @@
-package core.process;
+package process;
 
 import core.Lexer;
 import core.Parser;

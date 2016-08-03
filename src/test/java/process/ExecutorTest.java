@@ -1,4 +1,4 @@
-package core.process;
+package process;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.Rule;
