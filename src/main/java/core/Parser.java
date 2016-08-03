@@ -87,6 +87,8 @@ public class Parser {
             return new Variable(lineNumber, token.getData());
         } else if (token.getKind() == Kind.NUMBER) {
             return new NumberConst(token.getData());
+        } else if (token.getKind() == Kind.READ_OPERATION) {
+            return new ReadExpression();
         }
         throw new RuntimeException(lineNumber + "  Invalid element in expression");
     }

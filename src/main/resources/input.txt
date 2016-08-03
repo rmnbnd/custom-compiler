@@ -1,3 +1,8 @@
-declare name integer;
-display name
-1 name="Bill Bob"
+declare a integer
+declare b integer
+declare output integer
+read 2
+1 a=read
+2 b=a*read
+display output
+3 output=a+b

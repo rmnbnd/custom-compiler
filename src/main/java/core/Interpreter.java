@@ -88,6 +88,8 @@ public class Interpreter {
         } else if (operand instanceof NumberConst) {
             NumberConst numberConst = (NumberConst) operand;
             return numberConst.getNumber();
+        } else if (operand instanceof ReadExpression) {
+            return read;
         }
         return "0";
     }
