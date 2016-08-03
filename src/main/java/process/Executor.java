@@ -28,14 +28,14 @@ public class Executor {
     private static Executor executor = new Executor();
 
     public static void main(String[] args) throws IOException {
+        out.println("Please choose to declare, assign, or exit");
         executor.execute();
     }
 
     public void execute() {
-        String inputString = executor.getInputString();
-        boolean result = executor.execute(inputString);
+        boolean result = false;
         while (!result) {
-            inputString = executor.getInputString();
+            String inputString = executor.getInputString();
             result = executor.execute(inputString);
         }
     }
@@ -49,7 +49,7 @@ public class Executor {
             return true;
         } catch (Exception e) {
             out.println("Error: " + e.getMessage());
-            out.println("Please write code again");
+            out.println("Please choose to declare, assign, or exit");
             return false;
         }
     }

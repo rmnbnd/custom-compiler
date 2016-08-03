@@ -41,6 +41,9 @@ public class Parser {
                 lines.add(assignment);
                 break;
             }
+            default: {
+                throw new RuntimeException(token.getData() + " is not a declare or assignment.");
+            }
         }
     }
 
